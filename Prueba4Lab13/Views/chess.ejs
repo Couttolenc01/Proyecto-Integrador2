@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Games</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="/js/lib/dist.js" type="text/javascript"></script>
+  <style>
+    .card {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Chess Games</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/login"><i class="fa fa-user"></i> Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row align-items-center align-content-center">
+      <% games.forEach(function(game) { %>
+        <div class="col-6 align-items-center align-content-center">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">
+                <%= game.white %> (<%= game.ratingWhite %>) vs <%= game.black %> (<%= game.ratingBlack %>)
+              </h5>
+              <div id="board_<%= game.id %>" class="align-items-center align-content-center" style="width: 470px"></div>
+              <a href="/games/<%= game.id %>" class="btn btn-primary">View game</a>
+              <script>
+                var board_<%= game.id %> = PGNV.pgnView('board_<%= game.id %>', {
+                  pgn: "<%= game.moves %>"
+                });
+              </script>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</body>
+
+</html>
